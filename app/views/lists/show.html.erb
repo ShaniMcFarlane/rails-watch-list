@@ -1,0 +1,31 @@
+<h1><%= @list.name %></h1>
+<%# show %>
+
+<%# A user can see the details of a given list and its name %>
+<%# As a user, I can bookmark a movie inside a movie list %>
+<%# As a user, I can destroy a bookmark %>
+
+<%# display movies through the bookmark form (create the bookmark) ---> display movies in list %>
+
+<%= simple_form_for [@list, @bookmark] do |f| %>
+  <div class="form-group">
+    <%= f.label :movie_id, "Select a movie to bookmark" %>
+    <%= f.association :movie, collection: @movies, label_method: :title, value_method: :id, prompt: true, input_html: { class: "form-control" } %>
+  </div>
+  <div>
+    <%= f.submit "Bookmark Movie", class: "btn btn-primary" %>
+  </div>
+<% end %>
+<%# Display the name of the list
+    For each movie in the list:
+      Display the movie title
+    Provide a link/button to bookmark that movie
+    Create a form to bookmark a movie:
+    Allow the user to select a movie from the list
+    Include a button to submit the form %>
+
+<h6>Movies in this list</h6>
+<% @list.bookmarks.each do |bookmark| %>
+  <%= link_to bookmark.movie.title, movie_path(bookmark.movie) %>
+  <%= link_to 'Remove', list_bookmark_path(@list, bookmark), method: :delete, data: { confirm: 'Are you sure?' } %>
+<% end %>

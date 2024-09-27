@@ -1,0 +1,10 @@
+<%# index/new(create) %>
+<h1>Create a list</h1>
+<%# As a user, I can create a movie list %>
+
+<%# form to create new list  %>
+
+<%= simple_form_for @list do |f| %>
+  <%= f.input :name %>
+  <%= f.submit "Submit List", class: "btn btn-primary" %>
+<% end %>
